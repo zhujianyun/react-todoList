@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
+import Axios from 'axios';
 
 class TodoList extends Component {
 	constructor(props) {
-		console.log('constructor 数据初始化');
+		// console.log('constructor 数据初始化');
 		super(props);
 		this.state = {
 			inputValue: '',
@@ -15,11 +16,11 @@ class TodoList extends Component {
 	}
 
 	componentWillMount() {
-		console.log('componentWillMount--组件即将被挂载到页面上前');
+		// console.log('componentWillMount--组件即将被挂载到页面上前');
 	}
 
 	render() {
-		console.log('render--组件渲染时');
+		// console.log('render--组件渲染时');
 		return (
 			<Fragment>
 				<div>
@@ -36,25 +37,6 @@ class TodoList extends Component {
 				</ul>
 			</Fragment>
 		);
-	}
-
-	componentDidMount() {
-		console.log('componentDidMount--组件被挂载到页面上时');
-	}
-
-	componentWillUnmount() {
-		console.log('componentWillUnmount--组件被剔除页面上时');
-	}
-
-	shouldComponentUpdate() {
-		console.log('shouldComponentUpdate--组件被更新前');
-		return true;
-	}
-	componentWillUpdate() {
-		console.log('componentWillUpdate--组件被更新前,当componentDidMount返回true时');
-	}
-	componentDidUpdate() {
-		console.log('componentWillUpdate--组件更新完成时');
 	}
 
 	getTodoItem() {
@@ -75,6 +57,7 @@ class TodoList extends Component {
 		this.setState( () => ({
 			inputValue: value
 		}));
+		
 	}
 
 	handleBtnClick() {
@@ -91,6 +74,35 @@ class TodoList extends Component {
 			return {list};
 		});
 	}
+	
+	// 生命周期函数
+	componentDidMount() {
+		// console.log('componentDidMount--组件被挂载到页面上时');
+		Axios.get('/api/todoList').then(res => {
+			this.setState( () => ({
+				list: [...res.data]
+			}));
+			console.log(res);
+		}).catch(err => {
+			console.log(err);
+		});
+	}
+
+	componentWillUnmount() {
+		// console.log('componentWillUnmount--组件被剔除页面上时');
+	}
+
+	shouldComponentUpdate() {
+		// console.log('shouldComponentUpdate--组件被更新前');
+		return true;
+	}
+	componentWillUpdate() {
+		// console.log('componentWillUpdate--组件被更新前,当componentDidMount返回true时');
+	}
+	componentDidUpdate() {
+		// console.log('componentWillUpdate--组件更新完成时');
+	}
+
 }
 
 export default TodoList;
