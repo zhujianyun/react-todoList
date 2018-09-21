@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
+import App from './cssAnimation/App';
 import Axios from 'axios';
 
 class TodoList extends Component {
@@ -35,6 +36,7 @@ class TodoList extends Component {
 				<ul>
 					{this.getTodoItem()}
 				</ul>
+				<App />
 			</Fragment>
 		);
 	}
@@ -82,7 +84,7 @@ class TodoList extends Component {
 			this.setState( () => ({
 				list: [...res.data]
 			}));
-			console.log(res);
+			// console.log(res);
 		}).catch(err => {
 			console.log(err);
 		});

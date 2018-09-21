@@ -23,8 +23,6 @@ class TodoItem extends Component {
    }
 	render() {
 		const { content } = this.props;
-		console.log('child render');
-
 		return (
 			<li 
 				dangerouslySetInnerHTML={{__html: content}}
